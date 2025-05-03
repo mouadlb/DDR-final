@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duo des Reines</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary: #8A1C18;
+            --secondary: #D7BE91;
+            --dark: #10183A;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .bg-dark {
+            background-color: var(--dark);
+        }
+        
+        .text-primary {
+            color: var(--primary);
+        }
+        
+        .text-secondary {
+            color: var(--secondary);
+        }
+        
+        .text-dark {
+            color: var(--dark);
+        }
+        
+        .border-primary {
+            border-color: var(--primary);
+        }
+        
+        .border-secondary {
+            border-color: var(--secondary);
+        }
+        
+        .border-dark {
+            border-color: var(--dark);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(16, 24, 58, 0.7), rgba(16, 24, 58, 0.7)), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .carousel-item {
+            transition: transform 0.5s ease;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover .team-overlay {
+            opacity: 1;
+        }
+        
+        .team-overlay {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Social Icons Fixed -->
+    <div class="fixed bottom-6 left-6 z-50 flex flex-col space-y-4">
+        <a href="https://web.facebook.com/profile.php?id=61560560250430&locale=fr_FR" class="social-icon bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700">
+            <i class="fab fa-facebook text-xl"></i>
+        </a>
+        <a href="https://www.instagram.com/duo_des_reines?igsh=MWoyanowdWRrb250dQ==" class="social-icon bg-gradient-to-r from-purple-500 to-pink-500 text-white p-3 rounded-full shadow-lg hover:from-purple-600 hover:to-pink-600">
+            <i class="fab fa-instagram text-xl"></i>
+        </a>
+        <a href="https://wa.me/212661597594" class="social-icon bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700">
+            <i class="fab fa-whatsapp text-xl"></i>
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-dark text-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <span class="title-font text-2xl font-bold text-secondary">Duo des Reines</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('home')">Accueil</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('services')">Services</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('gallery')">Galerie</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('contact')">Contact</a>
+                    <a href="tel:+212674451180" class="bg-white text-dark font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition duration-300 flex items-center"><i class="fas fa-phone-alt mr-2"></i>Réserver</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="outline-none mobile-menu-button">
+                        <svg class="w-6 h-6 text-secondary" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden mobile-menu bg-dark">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('home')">Accueil</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('services')">Services</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('gallery')">Galerie</a>
+                    <a href="#" class="nav-link py-2 px-1" onclick="showPage('contact')">Contact</a>
+                    <a href="tel:+212674451180" class="bg-white text-dark font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition duration-300 flex justify-center items-center"><i class="fas fa-phone-alt mr-2"></i>Réserver</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pages -->
+    <div class="pages-container">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <!-- Hero Section -->
+            <section class="hero min-h-screen flex items-center justify-center text-white fade-in">
+                <div class="container mx-auto px-6 text-center">
+                    <h1 class="title-font text-5xl md:text-7xl font-bold mb-6 slide-up">Duo des Reines</h1>
+                    <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto slide-up">L'excellence au service de votre beauté</p>
+                    <button onclick="showPage('services')" class="bg-secondary text-dark font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300 transform hover:scale-105 pulse">
+                        Découvrir nos services
+                    </button>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 slide-up">
+                            <h2 class="title-font text-4xl font-bold text-dark mb-6">Notre Histoire</h2>
+                            <p class="text-gray-700 mb-4" style=" font-weight: bolder;">Duo des reines,   </p>
+                            <p class="text-gray-700 mb-6">Ouvert en 2019, Reine des Roses est un spa traditionnel marocain qui vous invite à vivre une expérience de détente authentique et raffinée. Dans un cadre chaleureux respectant les traditions, notre établissement offre des seances séparés pour hommes et femmes, garantissant confort, intimité et sérénité à chacun de nos visiteurs. Grâce à un personnel serviable, compétent et à l’écoute, chaque soin devient un moment unique de relaxation et de bien-être. Laissez-vous transporter par les rituels ancestraux et l’atmosphère apaisante de notre spa, où votre bien-être est notre priorité.</p>
+                            <a href="#cont-prev"><button class="bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-opacity-90 transition duration-300">
+                            Prendre rendez-vous
+                        </button></a>
+                        </div>
+                        <div class="md:w-1/2 relative slide-up">
+                            <div class="relative">
+                                <img src="./img/pexels-breakingpic-3188.jpg" alt="Salon de beauté" class="rounded-lg shadow-xl w-full h-auto">
+                                <div class="absolute -bottom-6 -right-6 bg-secondary p-4 rounded-lg shadow-lg hidden md:block">
+                                    <p class="text-dark font-bold">+ 6 ans d'expérience</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Preview Section -->
+            <section class="py-20 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16 slide-up">
+                        <h2 class="title-font text-4xl font-bold text-dark mb-4">Nos Services</h2>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                        <p class="text-gray-700 max-w-2xl mx-auto">Découvrez notre gamme complète de services de beauté et de bien-être</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300 slide-up">
+                            <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-spa text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="title-font text-xl font-bold text-dark mb-3">Hammam</h3>
+                            <p class="text-gray-700 mb-4">Hammam personnalisés pour une peau relaxé et rajeunie.</p>
+                            <button onclick="showPage('services')" class="text-primary font-semibold hover:underline">En savoir plus</button>
+                        </div>
+                        
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300 slide-up">
+                            <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-cut text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="title-font text-xl font-bold text-dark mb-3">Coiffure</h3>
+                            <p class="text-gray-700 mb-4">Coupes, colorations et brushing pour sublimer votre chevelure.</p>
+                            <button onclick="showPage('services')" class="text-primary font-semibold hover:underline">En savoir plus</button>
+                        </div>
+                        
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300 slide-up">
+                            <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-hand-sparkles text-3xl text-primary"></i>
+                            </div>
+                            <h3 class="title-font text-xl font-bold text-dark mb-3">massage</h3>
+                            <p class="text-gray-700 mb-4">Pose de vernis, french manucure et extensions pour des mains parfaites.</p>
+                            <button onclick="showPage('services')" class="text-primary font-semibold hover:underline">En savoir plus</button>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-12 slide-up">
+                        <button onclick="showPage('services')" class="bg-dark text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300">
+                            Voir tous nos services
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Preview Section -->
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16 slide-up">
+                        <h2 class="title-font text-4xl font-bold text-dark mb-4">Notre Galerie</h2>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                        <p class="text-gray-700 max-w-2xl mx-auto">Quelques-unes de nos réalisations</p>
+                    </div>
+                    
+                    <div class="carousel relative overflow-hidden rounded-lg shadow-xl slide-up">
+                        <div class="carousel-inner flex transition-transform duration-500 ease-in-out">
+                            <div class="carousel-item w-full flex-shrink-0">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <img src="./img/IMG-20250502-WA0061.jpg" alt="Beauté" class="w-full h-64 object-cover rounded">
+                                    <img src="./img/WhatsApp Image 2025-05-02 à 18.50.25_ada43dd0.jpg" alt="Beauté" class="w-full h-64 object-cover rounded">
+                                    <img src="./img/IMG-20250502-WA0079.jpg" alt="Beauté" class="w-full h-64 object-cover rounded"> 
+                                </div>
+                            </div>
+                            <div class="carousel-item w-full flex-shrink-0">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <img src="./img/IMG-20250502-WA0059.jpg" alt="Beauté" class="w-full h-64 object-cover rounded">
+                                    <img src="./img/IMG-20250502-WA0068.jpg" alt="Beauté" class="w-full h-64 object-cover rounded">
+                                    <img src="./img/IMG-20250502-WA0055.jpg" alt="Beauté" class="w-full h-64 object-cover rounded">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 text-dark p-2 rounded-full shadow-md hover:bg-opacity-100">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 text-dark p-2 rounded-full shadow-md hover:bg-opacity-100">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="text-center mt-12 slide-up">
+                        <button onclick="showPage('gallery')" class="bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300">
+                            Voir toute la galerie
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Preview Section -->
+            <section class="py-20 bg-white" id="cont-prev">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 slide-up">
+                            <h2 class="title-font text-4xl font-bold text-dark mb-6">Nous Contacter</h2>
+                            <div class="w-24 h-1 bg-primary mb-6"></div>
+                            <div class="space-y-6">
+                                <div class="flex items-start">
+                                    <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                        <i class="fas fa-map-marker-alt text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-dark mb-1">Adresse</h3>
+                                        <p class="text-gray-700">Rue d'Oran, Av. Moulay Hassan , Rabat 10020</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                        <i class="fas fa-phone-alt text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-dark mb-1">Téléphone</h3>
+                                        <p class="text-gray-700">05 37 76 19 18</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                        <i class="fas fa-envelope text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-dark mb-1">Email</h3>
+                                        <p class="text-gray-700">contact@duodesreines.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                        <i class="fas fa-clock text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-dark mb-1">Horaires</h3>
+                                        <p class="text-gray-700">Lundi - Dimanche: 10h - 22h</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div>
+                                        <a href="tel:+212674451180" class="bg-secondary text-dark font-bold py-3 px-6 rounded-full transition duration-300 flex items-center"><i class="fas fa-phone-alt mr-2"></i> Réserver</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 slide-up">
+                            <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+                                <h3 class="title-font text-2xl font-bold text-dark mb-6">reclamer</h3>
+                                <form>
+                                    <div class="mb-4">
+                                        <input type="text" placeholder="Votre nom" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div class="mb-4">
+                                        <input type="email" placeholder="Votre email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div class="mb-4">
+                                        <input type="tel" placeholder="Votre téléphone" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                    </div>
+                                    <div class="mb-4">
+                                        <textarea placeholder="Votre message" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary" rows="4"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-primary text-white font-bold py-2 px-4 rounded hover:bg-opacity-90 transition duration-300">
+                                        Envoyer
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Services Page -->
+        <div id="services-page" class="page">
+            <section class="py-20 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h1 class="title-font text-5xl font-bold text-dark mb-4">Nos Services</h1>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                        <p class="text-gray-700 max-w-2xl mx-auto">Découvrez notre gamme complète de services de beauté et de bien-être</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Service 1 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-spa text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Esthétique</h2>
+                                    <p class="text-gray-700">Des soins personnalisés adaptés à chaque type de peau</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4 text-align-center">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">manucure</span>
+                                    <span class="text-primary font-bold"></span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">pédicure</span>
+                                    
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Soin de visage</span>
+                                    
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">épilation</span>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 2 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-cut text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Les Coiffures</h2>
+                                    <p class="text-gray-700">Coupes, colorations et brushing pour sublimer votre chevelure</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Coupe femme</span>                                   
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Coloration complète</span>                                   
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">kératine</span>                                  
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Brushing</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 3 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-hand-sparkles text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Hammam royal</h2>
+                                    <p class="text-gray-700">Un rituel luxueux pour une peau douce et régénérée.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">soin du visage</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">plante naturelle</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">gommage</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Masque du corps</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">massage (savon noir) <span class="inline-flex items-center bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-0.5 rounded-full ml-2"><i class="fas fa-clock mr-1.5"></i>20 mins</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 4 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-paint-brush text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Hammam traditionnel</h2>
+                                    <p class="text-gray-700">Plongez dans l’authenticité du rituel oriental et laissez la chaleur purifier votre corps et apaiser votre esprit.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">savonnage</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">gommage</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Service 5 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-spa text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Les massages</h2>
+                                    <p class="text-gray-700">Un voyage apaisant au cœur du bien-être, pour un corps détendu et un esprit léger.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">relaxant</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">tonic</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">taille</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">pierres chaudes</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">drainage</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">strong</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mx-auto px-6 m-5">
+                    <div class="text-center mb-16">
+                        <h1 class="title-font text-5xl font-bold text-dark mb-4">Nos Packs</h1>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                        <p class="text-gray-700 max-w-2xl mx-auto">Découvrez nos packs de beauté et de bien-être</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Service 1 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-spa text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Pack Renaissance</h2>
+                                    <p class="text-gray-700">Redonnez éclat, fraîcheur et énergie à votre beauté naturelle grâce à ce soin complet des pieds, des mains et du visage.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4 text-align-center">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Hammam <span class="inline-flex items-center bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-0.5 rounded-full ml-2"><i class="fas fa-clock mr-1.5"></i>40 mins</span></span>
+                                    <span class="text-primary font-bold"></span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">Massage <span class="inline-flex items-center bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-0.5 rounded-full ml-2"><i class="fas fa-clock mr-1.5"></i>40 mins</span></span> 
+                                </div>    
+                                <div class="flex justify-between items-center">
+                                    <span class="text-primary text-xl font-bold flex items-center mt-4"><i class="fas fa-tag mr-2 text-secondary"></i> 2500 MAD</span> 
+                                </div>    
+                            </div>
+                        </div>
+                        
+                        <!-- Service 2 -->
+                        <div class="service-card bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <div class="flex items-start mb-6">
+                                <div class="bg-secondary bg-opacity-20 p-4 rounded-full w-16 h-16 flex items-center justify-center mr-4">
+                                    <i class="fas fa-cut text-2xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="title-font text-2xl font-bold text-dark mb-2">Rituel de Douceur</h2>
+                                    <p class="text-gray-700">Offrez à votre corps et votre visage un moment d’évasion, entre soins délicats et détente absolue.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">manucure</span>                                   
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">pedicure</span>                                   
+                                </div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2">
+                                    <span class="font-medium">soin du visage</span>                                  
+                                </div>
+                                <div class="flex justify-between items-center ">
+                                    <span class="text-primary text-xl font-bold flex items-center mt-4"><i class="fas fa-tag mr-2 text-secondary"></i> 350 MAD</span>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12 slide-up p-5">
+                        <a onclick="showPage('contact')" class="inline-flex items-center bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition duration-300 transform hover:scale-105">Réserver</a>
+                    </div>
+                </div>
+                
+            </section>
+        </div>
+
+        <!-- Gallery Page -->
+        <div id="gallery-page" class="page">
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h1 class="title-font text-5xl font-bold text-dark mb-4">Notre Galerie</h1>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0032.jpg" data-fancybox="gallery" data-caption="Image 2">
+                                <img src="./img/IMG-20250502-WA0032.jpg" alt="Beauté 2" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0035.jpg" data-fancybox="gallery" data-caption="Image 3">
+                                <img src="./img/IMG-20250502-WA0035.jpg" alt="Beauté 3" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0036.jpg" data-fancybox="gallery" data-caption="Image 4">
+                                <img src="./img/IMG-20250502-WA0036.jpg" alt="Beauté 4" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0037.jpg" data-fancybox="gallery" data-caption="Image 5">
+                                <img src="./img/IMG-20250502-WA0037.jpg" alt="Beauté 5" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0055.jpg" data-fancybox="gallery" data-caption="Image 6">
+                                <img src="./img/IMG-20250502-WA0055.jpg" alt="Beauté 6" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0056.jpg" data-fancybox="gallery" data-caption="Image 7">
+                                <img src="./img/IMG-20250502-WA0056.jpg" alt="Beauté 7" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0057.jpg" data-fancybox="gallery" data-caption="Image 8">
+                                <img src="./img/IMG-20250502-WA0057.jpg" alt="Beauté 8" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0058.jpg" data-fancybox="gallery" data-caption="Image 9">
+                                <img src="./img/IMG-20250502-WA0058.jpg" alt="Beauté 9" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0059.jpg" data-fancybox="gallery" data-caption="Image 10">
+                                <img src="./img/IMG-20250502-WA0059.jpg" alt="Beauté 10" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0060.jpg" data-fancybox="gallery" data-caption="Image 11">
+                                <img src="./img/IMG-20250502-WA0060.jpg" alt="Beauté 11" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0061.jpg" data-fancybox="gallery" data-caption="Image 12">
+                                <img src="./img/IMG-20250502-WA0061.jpg" alt="Beauté 12" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0062.jpg" data-fancybox="gallery" data-caption="Image 13">
+                                <img src="./img/IMG-20250502-WA0062.jpg" alt="Beauté 13" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0063.jpg" data-fancybox="gallery" data-caption="Image 14">
+                                <img src="./img/IMG-20250502-WA0063.jpg" alt="Beauté 14" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0064.jpg" data-fancybox="gallery" data-caption="Image 15">
+                                <img src="./img/IMG-20250502-WA0064.jpg" alt="Beauté 15" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0065.jpg" data-fancybox="gallery" data-caption="Image 16">
+                                <img src="./img/IMG-20250502-WA0065.jpg" alt="Beauté 16" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0066.jpg" data-fancybox="gallery" data-caption="Image 17">
+                                <img src="./img/IMG-20250502-WA0066.jpg" alt="Beauté 17" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0067.jpg" data-fancybox="gallery" data-caption="Image 18">
+                                <img src="./img/IMG-20250502-WA0067.jpg" alt="Beauté 18" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0068.jpg" data-fancybox="gallery" data-caption="Image 19">
+                                <img src="./img/IMG-20250502-WA0068.jpg" alt="Beauté 19" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0069.jpg" data-fancybox="gallery" data-caption="Image 20">
+                                <img src="./img/IMG-20250502-WA0069.jpg" alt="Beauté 20" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0070.jpg" data-fancybox="gallery" data-caption="Image 21">
+                                <img src="./img/IMG-20250502-WA0070.jpg" alt="Beauté 21" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0071.jpg" data-fancybox="gallery" data-caption="Image 22">
+                                <img src="./img/IMG-20250502-WA0071.jpg" alt="Beauté 22" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0072.jpg" data-fancybox="gallery" data-caption="Image 23">
+                                <img src="./img/IMG-20250502-WA0072.jpg" alt="Beauté 23" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0073.jpg" data-fancybox="gallery" data-caption="Image 24">
+                                <img src="./img/IMG-20250502-WA0073.jpg" alt="Beauté 24" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0074.jpg" data-fancybox="gallery" data-caption="Image 25">
+                                <img src="./img/IMG-20250502-WA0074.jpg" alt="Beauté 25" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0075.jpg" data-fancybox="gallery" data-caption="Image 26">
+                                <img src="./img/IMG-20250502-WA0075.jpg" alt="Beauté 26" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0076.jpg" data-fancybox="gallery" data-caption="Image 27">
+                                <img src="./img/IMG-20250502-WA0076.jpg" alt="Beauté 27" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0077.jpg" data-fancybox="gallery" data-caption="Image 28">
+                                <img src="./img/IMG-20250502-WA0077.jpg" alt="Beauté 28" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0078.jpg" data-fancybox="gallery" data-caption="Image 29">
+                                <img src="./img/IMG-20250502-WA0078.jpg" alt="Beauté 29" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <a href="./img/IMG-20250502-WA0079.jpg" data-fancybox="gallery" data-caption="Image 30">
+                                <img src="./img/IMG-20250502-WA0079.jpg" alt="Beauté 30" class="w-full h-64 object-cover transform hover:scale-105 transition duration-500 cursor-pointer">
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact-page" class="page">
+            <section class="py-20 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h1 class="title-font text-5xl font-bold text-dark mb-4">Nous Contacter</h1>
+                        <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+                    </div>
+                    
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/2">
+                            <div class="bg-white p-8 rounded-lg shadow-md">
+                                <h2 class="title-font text-3xl font-bold text-dark mb-6">Informations de contact</h2>
+                                
+                                <div class="space-y-6">
+                                    <div class="flex items-start">
+                                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                            <i class="fas fa-map-marker-alt text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-dark mb-1">Adresse</h3>
+                                            <p class="text-gray-700">Rue d'Oran, Av. Moulay Hassan, Rabat 10020</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                            <i class="fas fa-phone-alt text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-dark mb-1">Téléphone</h3>
+                                            <p class="text-gray-700">06 61 59 75 94</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                            <i class="fas fa-envelope text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-dark mb-1">Email</h3>
+                                            <p class="text-gray-700">duo.des.reines@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                            <i class="fas fa-clock text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-dark mb-1">Horaires</h3>
+                                            <p class="text-gray-700">Lundi - Dimanche 10h - 22h</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="bg-secondary bg-opacity-20 p-3 rounded-full mr-4">
+                                            <i class="fas fa-share-alt text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-dark mb-1">Réseaux sociaux</h3>
+                                            <div class="flex space-x-4 mt-2">
+                                                <a href="https://web.facebook.com/profile.php?id=61560560250430&locale=fr_FR" class="social-icon bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                                <a href="https://www.instagram.com/duo_des_reines?igsh=MWoyanowdWRrb250dQ==" class="social-icon bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-full hover:from-purple-600 hover:to-pink-600">
+                                                    <i class="fab fa-instagram"></i>
+                                                </a>
+                                                <a href="https://wa.me/21261597594" class="social-icon bg-green-600 text-white p-2 rounded-full hover:bg-green-700" target="_blank">
+                                                    <i class="fab fa-whatsapp"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div>
+                                            <a href="tel:+212674451180" class="bg-secondary text-dark font-bold py-3 px-6 rounded-full transition duration-300 flex items-center"><i class="fas fa-phone-alt mr-2"></i> Réserver</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                            <div class="lg:w-1/2">
+                                <div class="bg-white p-8 rounded-lg shadow-md">
+                                    <h2 class="title-font text-3xl font-bold text-dark mb-6">posez-nous vos questions</h2>
+                                    <form id="whatsapp-form">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div>
+                                                <label for="name" class="block text-gray-700 font-medium mb-1">Nom complet</label>
+                                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                            </div>
+                                            <div>
+                                                <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
+                                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div>
+                                                <label for="phone" class="block text-gray-700 font-medium mb-1">Téléphone</label>
+                                                <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary">
+                                            </div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="message" class="block text-gray-700 font-medium mb-1">Message</label>
+                                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-primary"></textarea>
+                                        </div>
+                                        
+                                        <button type="submit" class="w-full bg-primary text-white font-bold py-3 px-4 rounded hover:bg-opacity-90 transition duration-300">
+                                            Envoyer
+                                        </button>
+                                    </form>
+                                </div>
+                            
+                            <div class="mt-8 bg-white p-4 rounded-lg shadow-md">
+                                <h3 class="title-font text-xl font-bold text-dark mb-4">Nous trouver</h3>
+                                <div class="h-64 w-full bg-gray-200 rounded-lg overflow-hidden">
+                                    <!-- Google Maps Embed -->
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.008872652334!2d-6.826408999999999!3d34.017983199999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76b03da84bb21%3A0x9f935d346d187bac!2sduo%20des%20reines!5e0!3m2!1sfr!2sma!4v1746267120849!5m2!1sfr!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="title-font text-2xl font-bold text-secondary mb-4">Duo des Reines</h3>
+                    <p class="max-w-xs">L'excellence au service de votre beauté depuis 2019.</p>
+                </div>
+                
+                <div class="mb-8 md:mb-0">
+                    <h4 class="title-font text-lg font-bold mb-4">Liens rapides</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition duration-300" onclick="showPage('home')">Accueil</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300" onclick="showPage('services')">Services</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300" onclick="showPage('gallery')">Galerie</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="mb-8 md:mb-0">
+                    <h4 class="title-font text-lg font-bold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-secondary transition duration-300">hammam</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300">Coiffure</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300">massage</a></li>
+                        <li><a href="#" class="hover:text-secondary transition duration-300">Esthétique</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="title-font text-lg font-bold mb-4">Contact</h4>
+                    <address class="not-italic">
+                        <p class="mb-2">Rue d'Oran, Av. Moulay Hassan</p>
+                        <p class="mb-2">Rabat 10020</p>
+                        <p class="mb-2">05 37 76 19 18</p>
+                        <p class="mb-4">duo.des.reines@gmail.com</p>
+                    </address>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-gradient-to-r from-purple-500 to-pink-500 text-white p-2 rounded-full hover:from-purple-600 hover:to-pink-600">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p>&copy;Duo des Reines. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script>
+        Fancybox.bind("[data-fancybox]", {
+             loop: true
+        });
+    </script>
+    <script>
+        document.getElementById('whatsapp-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nom = encodeURIComponent(document.getElementById('name').value.trim());
+            const email = encodeURIComponent(document.getElementById('email').value.trim());
+            const phone = encodeURIComponent(document.getElementById('phone').value.trim());
+            const message = encodeURIComponent(document.getElementById('message').value.trim());
+
+            // Remplace ce numéro par ton numéro WhatsApp (sans + ni espaces)
+            const numero = "212674451180";
+
+            const brutText = 
+                "📅 *Nouvelle demande de rendez-vous*\n\n" +
+                "👤 *Nom complet* : " + document.getElementById('name').value.trim() + "\n" +
+                "📞 *Téléphone* : " + document.getElementById('phone').value.trim() + "\n" +
+                "📧 *Email* : " + document.getElementById('email').value.trim() + "\n\n" +
+                "📝 *Message complémentaire* :\n" + document.getElementById('message').value.trim() + "\n\n" +
+                "Merci de confirmer la disponibilité du créneau.";
+
+            // Encodage du texte pour l'URL WhatsApp
+            const text = encodeURIComponent(brutText);
+            const url = `https://wa.me/212674451180?text=${text}`;
+            window.open(url, '_blank');
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(`${pageId}-page`).classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active-nav');
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu if open
+            mobileMenu.classList.add('hidden');
+        }
+        
+        // Carousel functionality
+        let currentCarouselIndex = 0;
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const carouselPrev = document.querySelector('.carousel-prev');
+        const carouselNext = document.querySelector('.carousel-next');
+        
+        if (carouselItems.length > 0) {
+            function updateCarousel() {
+                const carouselInner = document.querySelector('.carousel-inner');
+                carouselInner.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+            }
+            
+            carouselPrev.addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
+                updateCarousel();
+            });
+            
+            carouselNext.addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
+                updateCarousel();
+            });
+        }
+        
+        // Team carousel
+        let currentTeamIndex = 0;
+        const teamItems = document.querySelectorAll('.carousel-item');
+        const teamPrev = document.querySelector('.team-prev');
+        const teamNext = document.querySelector('.team-next');
+        
+        if (teamItems.length > 0) {
+            function updateTeamCarousel() {
+                const teamInner = document.querySelector('.carousel-inner');
+                teamInner.style.transform = `translateX(-${currentTeamIndex * 100}%)`;
+            }
+            
+            teamPrev.addEventListener('click', () => {
+                currentTeamIndex = (currentTeamIndex - 1 + teamItems.length) % teamItems.length;
+                updateTeamCarousel();
+            });
+            
+            teamNext.addEventListener('click', () => {
+                currentTeamIndex = (currentTeamIndex + 1) % teamItems.length;
+                updateTeamCarousel();
+            });
+        }
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.slide-up');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
